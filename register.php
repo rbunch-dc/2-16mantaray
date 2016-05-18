@@ -1,15 +1,9 @@
 <?php
-
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-
+	require_once 'includes/db_connect.php';
 	require_once 'includes/head.php';
 	require_once 'includes/header.php';
 ?>
-
-
-	<form action="register_process.php" method="post">
+	<form action="register_process.php" method="post" enctype="multipart/form-data">
 	  <div class="form-group">
 	    <label for="real-name">Real Name</label>
 	    <input type="text" class="form-control" id="real-name" placeholder="Your real name" name="realName">
@@ -32,15 +26,12 @@
 	    <label for="exampleInputPassword1">Confirm Password</label>
 	    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="password2">
 	  </div>
-
-
-<!-- 
 	  <div class="form-group">
 	    <label for="exampleInputFile">File input</label>
-	    <input type="file" id="exampleInputFile">
+	    <input type="file" id="exampleInputFile" name="avatar">
 	    <p class="help-block">Example block-level help text here.</p>
 	  </div>
-	  <div class="checkbox">
+<!-- 	  <div class="checkbox">
 	    <label>
 	      <input type="checkbox"> Check me out
 	    </label>
