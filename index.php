@@ -46,9 +46,9 @@
 			</div>
 
 			<div class="right-container" id="<?php print $post['id'];?>">
-				<div class="arrow-up" ng-click="upVote($event)">X</div>
+				<div class="arrow-up" ng-click="processVote($event, 1)">X</div>
 				<div class="vote-count">Vote Count</div>
-				<div class="arrow-down">X</div>
+				<div class="arrow-down" ng-click="processVote($event, -1)">X</div>
 			</div>
 
 		</div>

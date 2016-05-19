@@ -11,5 +11,8 @@
 		'pid' => $post_id
 	));
 
-	print json_encode($_SESSION['username']);
+	$total_votes = DB::query("SELECT SUM(vote_direction) AS voteTotal FROM votes WHERE pid =".$post_id);
+
+	print json_encode(intval($total_votes[0]['voteTotal']));
+
 
