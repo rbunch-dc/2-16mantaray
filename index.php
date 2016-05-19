@@ -8,7 +8,13 @@
 	// include -- will keep going if it cant find the file
 
 	// $all_posts = DB::query("SELECT * FROM posts WHERE status != 0");
-	$all_posts = DB::query("SELECT * FROM posts");
+	$all_posts = DB::query("SELECT posts.*, 
+		COALESCE(SUM(votes.vote_direction),'ha ha, you have no votes, loser') as aggregateVotes
+		FROM posts
+		LEFT JOIN votes  ON posts.id = votes.pid 
+		GROUP BY posts.id;");
+
+
 	if($_GET['post'] == "success"){
 		print "Hoooray! Your post came through";
 	}
@@ -47,7 +53,7 @@
 
 			<div class="right-container" id="<?php print $post['id'];?>">
 				<div class="arrow-up" ng-click="processVote($event, 1)">X</div>
-				<div class="vote-count">Vote Count</div>
+				<div class="vote-count"><?php print $post['aggregateVotes']; ?></div>
 				<div class="arrow-down" ng-click="processVote($event, -1)">X</div>
 			</div>
 

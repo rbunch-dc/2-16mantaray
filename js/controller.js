@@ -3,17 +3,25 @@ mantaApp.controller("mantaController", function($scope, $http){
 
 	$scope.processVote = function(element, vote){
 		// console.log("Clicked on upvote");
-		// console.log(element.target);
-		console.log(vote);
+		// console.dir(element.target.children[0].innerHTML);
+		// console.log(vote);
 		$http.post('process_vote.php', {
 			voteDirection: vote,
 			idOfPost: element.target.parentElement.id
 		}).then(function successCallback(response){
 			// console.dir(element.target.nextElementSibling.innerHTML);
 			if(vote == 1){
-				element.target.nextElementSibling.innerHTML = response.data;
+				if(response.data == 'notLoggedIn'){
+					element.target.nextElementSibling.innerHTML = 'You must be logged in to vote.';
+				}else{
+					element.target.nextElementSibling.innerHTML = response.data;
+				}
 			}else{
-				element.target.previousElementSibling.innerHTML = response.data;
+				if(response.data == 'notLoggedIn'){
+					element.target.previousElementSibling.innerHTML = 'You must be logged in to vote';
+				}else{
+					element.target.previousElementSibling.innerHTML = response.data;
+				}
 			}
 		}, function errorCallback(response){
 			console.log(response);

@@ -1,18 +1,31 @@
 <?php
 	require_once 'includes/db_connect.php';
-	$json_received = file_get_contents('php://input');
-	$decoded_json = json_decode($json_received, true);
-	$post_id = $decoded_json['idOfPost'];
-	$vote_direction = $decoded_json['voteDirection'];
 
-	DB::insert('votes', array(
-		'username' => $_SESSION['username'],
-		'vote_direction' => $vote_direction,
-		'pid' => $post_id
-	));
+	if(!isset($_SESSION['username'])){
+		print "notLoggedIn";
+		exit;
+	}else{
 
-	$total_votes = DB::query("SELECT SUM(vote_direction) AS voteTotal FROM votes WHERE pid =".$post_id);
+		$json_received = file_get_contents('php://input');
+		$decoded_json = json_decode($json_received, true);
+		$post_id = $decoded_json['idOfPost'];
+		$vote_direction = $decoded_json['voteDirection'];
 
-	print json_encode(intval($total_votes[0]['voteTotal']));
+		$did_vote = DB::query("SELECT * FROM votes WHERE username = %s AND pid = %i", $_SESSION['username'], $post_id);
 
+		if(DB::count() != 0){
+			print 'alreadyVoted';
+			exit;
+		}
+
+		DB::insert('votes', array(
+			'username' => $_SESSION['username'],
+			'vote_direction' => $vote_direction,
+			'pid' => $post_id
+		));
+
+		$total_votes = DB::query("SELECT SUM(vote_direction) AS voteTotal FROM votes WHERE pid =".$post_id);
+
+		print json_encode(intval($total_votes[0]['voteTotal']));
+	}
 
