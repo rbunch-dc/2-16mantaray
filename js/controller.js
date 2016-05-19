@@ -1,6 +1,18 @@
 var mantaApp = angular.module("mantaApp", []);
 mantaApp.controller("mantaController", function($scope, $http){
 
+	$scope.follow = function(username){
+
+		$http.post('process_follow.php', {
+			poster: username
+		}).then(function successCallback(response){
+			console.log(response.data);
+		}, function errorCallback(response){
+			console.log(response);
+		});		
+
+	}
+
 	$scope.processVote = function(element, vote){
 		// console.log("Clicked on upvote");
 		// console.dir(element.target.children[0].innerHTML);

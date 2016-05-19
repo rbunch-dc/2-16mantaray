@@ -8,7 +8,7 @@ body{
 	padding: 20px 10px;
 	border-radius: 5px;
 	font-size: 20px;
-	height: 100px;
+	overflow: hidden;
 }
 
 #post-text{
@@ -20,14 +20,13 @@ body{
 	width: 70%;
 	float: left;
 	.user, .text, .date {
-		float: left;
+		
 	}
 }
 
 .right-container{
 	width: 30%;
 	float: left;
-	height: 40px;
 	.arrow-up, .arrow-down, .vote-count{
 		text-align: right;
 		margin-right: 40px;

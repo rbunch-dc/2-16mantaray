@@ -10,7 +10,7 @@ body {
   padding: 20px 10px;
   border-radius: 5px;
   font-size: 20px;
-  height: 100px;
+  overflow: hidden;
 }
 
 /* line 14, ../compass/sass/style.scss */
@@ -24,18 +24,13 @@ body {
   width: 70%;
   float: left;
 }
-/* line 22, ../compass/sass/style.scss */
-.left-container .user, .left-container .text, .left-container .date {
-  float: left;
-}
 
 /* line 27, ../compass/sass/style.scss */
 .right-container {
   width: 30%;
   float: left;
-  height: 40px;
 }
-/* line 31, ../compass/sass/style.scss */
+/* line 30, ../compass/sass/style.scss */
 .right-container .arrow-up, .right-container .arrow-down, .right-container .vote-count {
   text-align: right;
   margin-right: 40px;
