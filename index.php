@@ -13,8 +13,9 @@
 		print "Hoooray! Your post came through";
 	}
 ?>
+<div id="content" ng-controller="mantaController">
 
-<body>
+{{message}}
 
 	<h1>Make a post</h1>
 	<?php if(isset($_SESSION['username'])): ?>
@@ -44,16 +45,16 @@
 				<div class="date">Date: <?php print $formatted_date; ?></div>
 			</div>
 
-			<div class="right-container">
-				<div class="arrow-up">X</div>
-				<div class="vote-count">X</div>
+			<div class="right-container" id="<?php print $post['id'];?>">
+				<div class="arrow-up" ng-click="upVote($event)">X</div>
+				<div class="vote-count">Vote Count</div>
 				<div class="arrow-down">X</div>
 			</div>
 
 		</div>
 		
 	<?php endforeach; ?>
-
+	</div>
 </body>
 </html>
 

@@ -8,8 +8,8 @@
 
 	DB::insert('posts', array(
 		'username' => $_SESSION['username'],
-		'postText' => $_POST['post_text'],
-		'status' => 0
+		'postText' => $_POST['post_text']
+		// 'status' => 0
 	));
 
 	header('Location: index.php?post=success');
