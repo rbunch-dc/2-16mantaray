@@ -4,7 +4,7 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	require_once 'includes/db_connect.php';
-	
+
 	DB::$error_handler = false; // since we're catching errors, don't need error handler
 	DB::$throw_exception_on_error = true;	
 
@@ -42,7 +42,6 @@
 	        echo "Sorry, there was an error uploading your file.";
 	    }
 
-exit;
 
 		try{
 			DB::insert('users', array(

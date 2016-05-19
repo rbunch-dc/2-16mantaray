@@ -7,7 +7,8 @@
 	// require -- will include the file, but php will die if the file isn't there
 	// include -- will keep going if it cant find the file
 
-	$all_posts = DB::query("SELECT * FROM posts WHERE status != 0");
+	// $all_posts = DB::query("SELECT * FROM posts WHERE status != 0");
+	$all_posts = DB::query("SELECT * FROM posts");
 	if($_GET['post'] == "success"){
 		print "Hoooray! Your post came through";
 	}
@@ -37,9 +38,18 @@
 		?>
 
 		<div class="post">
-			<div class="user"><?php print $post['username']; ?></div>
-			<div class="text"><?php print $post['postText']; ?></div>
-			<div class="date"><?php print $formatted_date; ?></div>
+			<div class="left-container">
+				<div class="user">Poster: <?php print $post['username']; ?></div>
+				<div class="text">Comment: <?php print $post['postText']; ?></div>
+				<div class="date">Date: <?php print $formatted_date; ?></div>
+			</div>
+
+			<div class="right-container">
+				<div class="arrow-up">X</div>
+				<div class="vote-count">X</div>
+				<div class="arrow-down">X</div>
+			</div>
+
 		</div>
 		
 	<?php endforeach; ?>
