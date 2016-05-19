@@ -13,16 +13,33 @@
 
 		$did_vote = DB::query("SELECT * FROM votes WHERE username = %s AND pid = %i", $_SESSION['username'], $post_id);
 
-		if(DB::count() != 0){
-			print 'alreadyVoted';
-			exit;
-		}
+// print json_encode($did_vote);
+// exit;
 
-		DB::insert('votes', array(
-			'username' => $_SESSION['username'],
-			'vote_direction' => $vote_direction,
-			'pid' => $post_id
-		));
+		if(DB::count() != 0){
+			//We found a record. This person has voted on this post before.
+
+			//If they upvoted and have already upvoted...
+			if(($vote_direction == 1) && ($did_vote[0]['vote_direction'] == 1)){
+				print 'alreadyVoted';
+				exit;
+
+			//if they downvoted and have already downvoted
+			}else if(($vote_direction == -1) && ($did_vote[0]['vote_direction'] == -1)){
+				print 'alreadyVoted';
+				exit;
+			}else{
+				DB::update('votes', array(
+	  				'vote_direction' => $vote_direction
+	  			), "username=%s", "pid=%i", $_SESSION['username'], $post_id);
+			}
+		}else{
+			DB::insert('votes', array(
+				'username' => $_SESSION['username'],
+				'vote_direction' => $vote_direction,
+				'pid' => $post_id
+			));
+		}
 
 		$total_votes = DB::query("SELECT SUM(vote_direction) AS voteTotal FROM votes WHERE pid =".$post_id);
 
