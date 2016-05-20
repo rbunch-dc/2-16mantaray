@@ -11,6 +11,7 @@
 	//We need a string of items to pass to our "NOT IN" query. With the help of implode, we have it.
 	$people_user_is_following_as_string = implode("','",$following_array);
 
+
 	//Now, we can write a query that will get all the usernames in the user table that are not in the "people_user_is_following_as_string" we made above. we use the "NOT IN" 
 	$not_following_array = DB::queryOneColumn('username', "SELECT username FROM users 
 		WHERE username != %s 
@@ -18,36 +19,38 @@
 
 ?>
 
-<div class="wrapper" ng-controller="mantaController">
-<div class="container">
-	<div class="row">
-		<h3>Users you are following</h3>
-		<div class="col-sm-8 col-sm-offset-2">
-			<div class="row">
-				<?php foreach($following_array as $user): ?>
-					<div class="col-sm-8"><?php print $user; ?></div>
-					<div class="col-sm-4"><button ng-click="unfollow('<?php print $user["username"];?>')" class="btn btn-danger">Unfollow</button>
-					</div>
-				<?php endforeach; ?>
+<div class="wrapper col-sm-12" ng-controller="mantaController">
+	<div class="container col-sm-12">
+		<div class="row">
+			<h3>Users you are following</h3>
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="row">
+					<?php foreach($following_array as $user): ?>
+						<div class="col-sm-8"><?php print $user; ?></div>
+						<div class="col-sm-4">
+							<button ng-click="follow('<?php print $user;?>','unfollow')" class="btn btn-danger">Unfollow</button>
+						</div>
+					<?php endforeach; ?>
+				</div>
 			</div>
 		</div>
-		<h3>Users you are not following</h3>
 	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2">
-			<div class="row">
-				<?php foreach($not_following_array as $user): ?>
-					<div class="col-sm-8"><?php print $user; ?></div>
-					<div class="col-sm-4"><button ng-click="follow('<?php print $user["username"];?>')" class="btn btn-primary">Follow</button>
-					</div>
-				<?php endforeach; ?>
-			</div>
-		</div>
 
+	<div class="container col-sm-12">
+		<div class="row">
+			<h3>Users you are not following</h3>
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="row">
+					<?php foreach($not_following_array as $user): ?>
+						<div class="col-sm-8"><?php print $user; ?></div>
+						<div class="col-sm-4">
+							<button ng-click="follow('<?php print $user;?>','follow')" class="btn btn-primary">Follow</button>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
 </div>
 
 
